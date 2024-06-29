@@ -14,6 +14,7 @@ public class CoinGiver : MonoBehaviour
     }
     private void Start()
     {
+        PlayerStats.instance.CurrentCapacity += 1;
         rewardManager.animals.Add(this);
     }
 
@@ -21,5 +22,10 @@ public class CoinGiver : MonoBehaviour
     {
         CoinManager.instance.AddCoins(coinAmount);
         textSpawner.SpawnText(coinAmount);
+    }
+    public void OnDestroy()
+    {
+        PlayerStats.instance.CurrentCapacity -= 1;
+        rewardManager.animals.Remove(this);
     }
 }
