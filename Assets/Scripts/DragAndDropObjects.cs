@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DragAndDropObjects : MonoBehaviour
 {
-    private Vector3 mousePositions;
+    private Vector3 _mousePositions;
     [SerializeField] private DragAndDropObjects prefabObject;
     [SerializeField] private GameObject effectMerge;
 
@@ -14,13 +14,13 @@ public class DragAndDropObjects : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        mousePositions = Input.mousePosition - mousePos();
+        _mousePositions = Input.mousePosition - mousePos();
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         transform.position += new Vector3(0, 0.5f, 0);
     }
     private void OnMouseDrag()
     {
-        Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePositions);
+        Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition - _mousePositions);
         newPosition.y = transform.position.y; 
         transform.position = newPosition;
     }
