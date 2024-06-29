@@ -124,6 +124,7 @@ MonoBehaviour:
   prefabObject: {fileID: 0}
   effectMerge: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7,
     type: 3}
+  id: 4
 --- !u!54 &3751765037368341357
 Rigidbody:
   m_ObjectHideFlags: 0

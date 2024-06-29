@@ -7,6 +7,14 @@ public class DragAndDropObjects : MonoBehaviour
     private Vector3 _mousePositions;
     [SerializeField] private DragAndDropObjects prefabObject;
     [SerializeField] private GameObject effectMerge;
+    public int id;
+
+    private SaveSystem saveSystem;
+
+    private void Awake()
+    {
+        saveSystem = FindObjectOfType<SaveSystem>();
+    }
 
     private Vector3 mousePos()
     {
@@ -34,14 +42,22 @@ public class DragAndDropObjects : MonoBehaviour
         DragAndDropObjects dragObj = collision.gameObject.GetComponent<DragAndDropObjects>();
         if (dragObj != null)
         {
-            if (this.GetInstanceID() < dragObj.GetInstanceID())
+            if (this.id == dragObj.id)
             {
-                Vector3 mergePosition = (transform.position + dragObj.transform.position) / 2;
-                Instantiate(effectMerge, mergePosition, Quaternion.identity);
-                Instantiate(prefabObject, mergePosition, Quaternion.identity);
+                if (this.GetInstanceID() < dragObj.GetInstanceID())
+                {
+                    Vector3 mergePosition = (transform.position + dragObj.transform.position) / 2;
+                    Instantiate(effectMerge, mergePosition, Quaternion.identity);
+                    Instantiate(prefabObject, mergePosition, Quaternion.identity);
 
-                Destroy(dragObj.gameObject);
-                Destroy(gameObject);
+                    Destroy(dragObj.gameObject);
+                    Destroy(gameObject);
+
+                    if (saveSystem != null)
+                    {
+                        saveSystem.UpdateDragObjectsArray();
+                    }
+                }
             }
         }
     }

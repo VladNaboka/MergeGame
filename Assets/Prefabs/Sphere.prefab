@@ -119,13 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba57c1a5fadbaf47afb7cee621547ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mousePositions: {x: 0, y: 0, z: 0}
-  mergeRadius: 1
-  mergeableObjects: []
   prefabObject: {fileID: 5671251185792900699, guid: 3bfad84a9f3c77f4aaa09e37cef4de9f,
     type: 3}
   effectMerge: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7,
     type: 3}
+  id: 2
 --- !u!54 &6262428070253226897
 Rigidbody:
   m_ObjectHideFlags: 0
