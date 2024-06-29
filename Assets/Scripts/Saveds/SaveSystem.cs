@@ -38,23 +38,27 @@ public class SaveSystem : MonoBehaviour
         {
             for (int i = 0; i < dragObjectsList.Count; i++)
             {
-                Instantiate(all[dragObjectsList[i]-1].prefab, new Vector3(UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(0, 10), UnityEngine.Random.Range(0, 10)), Quaternion.identity);
+                Instantiate(all[dragObjectsList[i]-1].prefab, 
+                    new Vector3(
+                    UnityEngine.Random.Range(-3, 3), 
+                    1, 
+                    UnityEngine.Random.Range(3, 9)), 
+                    Quaternion.identity);
                 Debug.Log("ID "+all[dragObjectsList[i]-1].id);
             }
         }
         dragObjects = FindObjectsOfType<DragAndDropObjects>();
 
         savedObjects = new SavedData[dragObjects.Length];
-        StartCoroutine(SaveDataCoroutine());
+        SaveObjects();
+        //StartCoroutine(ControllAnimals());
     }
 
-    private IEnumerator SaveDataCoroutine()
+    private IEnumerator ControllAnimals()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(3f);
-            SaveObjects();
-        }
+        yield return new WaitForSeconds(1f);
+        SaveObjects();
+        yield break;
     }
 
     private void SaveObjects()
@@ -92,18 +96,15 @@ public class SaveSystem : MonoBehaviour
     }
     public void UpdateDragObjectsArray()
     {
-        
-        dragObjectsList.Clear();
-        Debug.Log("LIST " + dragObjectsList.Count);
-
         StartCoroutine(timerAddedDrag());
-
     }
 
     IEnumerator timerAddedDrag()
     {
+        dragObjectsList.Clear();
+        PlayerPrefs.DeleteAll();
         List<DragAndDropObjects> updatedList = new List<DragAndDropObjects>();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
         foreach (var obj in FindObjectsOfType<DragAndDropObjects>())
         {
             updatedList.Add(obj);
@@ -118,7 +119,7 @@ public class SaveSystem : MonoBehaviour
             SaveObject(dragObjects[i], i);
             prefsManager.SaveAnimalData("animal" + i, dragObjects[i].id.ToString());
         }
-
+        SaveObjects();
         yield break;
     }
 }

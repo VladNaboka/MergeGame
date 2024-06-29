@@ -11,6 +11,9 @@ public class DragAndDropObjects : MonoBehaviour
 
     private SaveSystem saveSystem;
 
+    [SerializeField] private Vector3 minBounds;
+    [SerializeField] private Vector3 maxBounds;
+
     private void Awake()
     {
         saveSystem = FindObjectOfType<SaveSystem>();
@@ -26,13 +29,21 @@ public class DragAndDropObjects : MonoBehaviour
     private void OnMouseDrag()
     {
         Vector3 newPosition = GetMouseWorldPosition() + _offset;
-        newPosition.y = transform.position.y; 
+        newPosition.y = transform.position.y;
+        newPosition = BoundsDrag(newPosition);
         transform.position = newPosition;
     }
 
     private void OnMouseUp()
     {
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    private Vector3 BoundsDrag(Vector3 position)
+    {
+        position.x = Mathf.Clamp(position.x, minBounds.x, maxBounds.x);
+        position.z = Mathf.Clamp(position.z, minBounds.z, maxBounds.z);
+        return position;
     }
 
     private Vector3 GetMouseWorldPosition()

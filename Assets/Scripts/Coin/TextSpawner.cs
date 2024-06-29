@@ -9,7 +9,7 @@ public class TextSpawner : MonoBehaviour
 
     public void SpawnText(int coinAmount)
     {
-        GameObject text = Instantiate(textPrefab, gameObject.transform.position + offset, Quaternion.Euler(30, 0, 0));
+        GameObject text = Instantiate(textPrefab, gameObject.transform.position + offset, Quaternion.Euler(-30, 0, 0));
         text.GetComponent<RewardText>().SetText(coinAmount);
     }
 }

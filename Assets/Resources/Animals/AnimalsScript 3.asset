@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AnimalsScript 3
   m_EditorClassIdentifier: 
   _id: 4
-  _prefab: {fileID: 8248331104500546895, guid: c7aa6d3be95ab1d4b8d56ba02a32c1d7, type: 3}
+  _prefab: {fileID: 6931562272057538830, guid: 37d2d50ed1b5d834c9e3c92c562dabae, type: 3}
