@@ -316,7 +316,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savedObjects: []
   dragObjects: []
-  allDragObjects: []
   dragObjectsList: 
 --- !u!114 &717778721
 MonoBehaviour:

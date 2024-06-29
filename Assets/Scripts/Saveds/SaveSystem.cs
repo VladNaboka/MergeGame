@@ -92,22 +92,33 @@ public class SaveSystem : MonoBehaviour
     }
     public void UpdateDragObjectsArray()
     {
-        List<DragAndDropObjects> updatedList = new List<DragAndDropObjects>();
+        
         dragObjectsList.Clear();
+        Debug.Log("LIST " + dragObjectsList.Count);
 
+        StartCoroutine(timerAddedDrag());
+
+    }
+
+    IEnumerator timerAddedDrag()
+    {
+        List<DragAndDropObjects> updatedList = new List<DragAndDropObjects>();
+        yield return new WaitForSeconds(1);
         foreach (var obj in FindObjectsOfType<DragAndDropObjects>())
         {
             updatedList.Add(obj);
             dragObjectsList.Add(obj.id);
             Debug.Log("awdawdawdawd" + obj.id);
         }
-
         dragObjects = updatedList.ToArray();
+        savedObjects = new SavedData[dragObjects.Length];
 
         for (int i = 0; i < dragObjects.Length; i++)
         {
             SaveObject(dragObjects[i], i);
             prefsManager.SaveAnimalData("animal" + i, dragObjects[i].id.ToString());
         }
+
+        yield break;
     }
 }

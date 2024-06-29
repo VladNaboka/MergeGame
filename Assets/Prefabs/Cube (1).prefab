@@ -119,8 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba57c1a5fadbaf47afb7cee621547ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabObject: {fileID: 5487838511660812938, guid: 20cf8e1ceb83119408daf37601f3498c,
-    type: 3}
+  prefabObject: {fileID: 0}
   effectMerge: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7,
     type: 3}
   id: 1
@@ -149,5 +148,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0

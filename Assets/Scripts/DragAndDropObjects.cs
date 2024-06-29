@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DragAndDropObjects : MonoBehaviour
 {
-    private Vector3 _mousePositions;
+    private Vector3 _offset;
     [SerializeField] private DragAndDropObjects prefabObject;
     [SerializeField] private GameObject effectMerge;
     public int id;
@@ -16,25 +16,30 @@ public class DragAndDropObjects : MonoBehaviour
         saveSystem = FindObjectOfType<SaveSystem>();
     }
 
-    private Vector3 mousePos()
-    {
-        return Camera.main.WorldToScreenPoint(transform.position);
-    }
     private void OnMouseDown()
     {
-        _mousePositions = Input.mousePosition - mousePos();
+        _offset = transform.position - GetMouseWorldPosition();
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
         transform.position += new Vector3(0, 0.5f, 0);
     }
+
     private void OnMouseDrag()
     {
-        Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition - _mousePositions);
+        Vector3 newPosition = GetMouseWorldPosition() + _offset;
         newPosition.y = transform.position.y; 
         transform.position = newPosition;
     }
+
     private void OnMouseUp()
     {
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    private Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mousePoint = Input.mousePosition;
+        mousePoint.z = Camera.main.WorldToScreenPoint(transform.position).z;
+        return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -46,16 +51,23 @@ public class DragAndDropObjects : MonoBehaviour
             {
                 if (this.GetInstanceID() < dragObj.GetInstanceID())
                 {
-                    Vector3 mergePosition = (transform.position + dragObj.transform.position) / 2;
-                    Instantiate(effectMerge, mergePosition, Quaternion.identity);
-                    Instantiate(prefabObject, mergePosition, Quaternion.identity);
-
-                    Destroy(dragObj.gameObject);
-                    Destroy(gameObject);
-
-                    if (saveSystem != null)
+                    if (prefabObject != null)
                     {
-                        saveSystem.UpdateDragObjectsArray();
+                        Vector3 mergePosition = (transform.position + dragObj.transform.position) / 2;
+                        Instantiate(effectMerge, mergePosition, Quaternion.identity);
+                        Instantiate(prefabObject, mergePosition, Quaternion.identity);
+
+                        Destroy(dragObj.gameObject);
+                        Destroy(gameObject);
+
+                        if (saveSystem != null)
+                        {
+                            saveSystem.UpdateDragObjectsArray();
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Некуда большеее");
                     }
                 }
             }
