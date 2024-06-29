@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class DragAndDropObjects : MonoBehaviour
 {
-    [SerializeField] private Vector3 mousePositions;
-    [SerializeField] private float mergeRadius = 1.0f;
-    [SerializeField] private List<DragAndDropObjects> mergeableObjects;
+    private Vector3 mousePositions;
     [SerializeField] private DragAndDropObjects prefabObject;
     [SerializeField] private GameObject effectMerge;
 
