@@ -1,18 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoinManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Text coinText;
+    public int coins;
+
+    public static CoinManager instance;
+   
+    private void Awake()
     {
-        
+        LoadData();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance == this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+    private void Update()
+    {
+        coinText.text = coins.ToString();
+    }
+
+    public void AddCoins(int amount)
+    {
+        coins += amount;
+        PlayerPrefs.SetInt("Coins", coins);
+    }
+    public void RemoveCoins(int amount)
+    {
+        coins -= amount;
+        PlayerPrefs.SetInt("Coins", coins);
+    }
+    private void LoadData()
+    {
+        coins = PlayerPrefs.GetInt("Coins", 0);
     }
 }

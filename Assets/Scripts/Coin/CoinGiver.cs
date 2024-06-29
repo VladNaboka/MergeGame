@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class CoinGiver : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int coinAmount;
+    [SerializeField] private TextSpawner textSpawner;
+    private RewardManager rewardManager;
+
+    private void Awake()
     {
-        
+        rewardManager = FindObjectOfType<RewardManager>();
+    }
+    private void Start()
+    {
+        rewardManager.animals.Add(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GiveCoin()
     {
-        
+        CoinManager.instance.AddCoins(coinAmount);
+        textSpawner.SpawnText(coinAmount);
     }
 }

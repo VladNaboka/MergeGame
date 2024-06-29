@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class RewardManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<CoinGiver> animals;
+    [SerializeField] private int timeForReward;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        StartCoroutine(RewardCoroutine());
+    }
+    private IEnumerator RewardCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timeForReward);
+
+            if(animals != null && animals.Count >= 1)
+            {
+                foreach(CoinGiver animal in animals)
+                {
+                    if(animal != null)
+                    {
+                        animal.GiveCoin();
+                    }
+                }
+            }
+        }
     }
 }
