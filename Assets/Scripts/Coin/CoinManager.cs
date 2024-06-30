@@ -13,10 +13,7 @@ public class CoinManager : MonoBehaviour
     private void Awake()
     {
         LoadData();
-    }
 
-    void Start()
-    {
         if (instance == null)
         {
             instance = this;
@@ -34,6 +31,7 @@ public class CoinManager : MonoBehaviour
 
     public void AddCoins(int amount)
     {
+        SoundManager.instance.Play("Coin");
         coins += amount;
         PlayerPrefs.SetInt("Coins", coins);
     }
@@ -44,6 +42,6 @@ public class CoinManager : MonoBehaviour
     }
     private void LoadData()
     {
-        coins = PlayerPrefs.GetInt("Coins", 0);
+        coins = PlayerPrefs.GetInt("Coins", 5);
     }
 }

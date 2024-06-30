@@ -23,6 +23,7 @@ public class Shop : MonoBehaviour
     {
         if(CoinManager.instance.coins >= currentPrice)
         {
+            SoundManager.instance.Play("Buy");
             CoinManager.instance.RemoveCoins(currentPrice);
             addedCapacity += 1;
             currentPrice *= 3;
@@ -30,5 +31,11 @@ public class Shop : MonoBehaviour
             PlayerPrefs.SetInt("AddedCapacity", addedCapacity);
             PlayerPrefs.SetInt("CapacityPrice", currentPrice);
         }
+    }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("AddedCapacity", addedCapacity);
+        PlayerPrefs.SetInt("CapacityPrice", currentPrice);
+        PlayerPrefs.Save();
     }
 }

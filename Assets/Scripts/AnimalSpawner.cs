@@ -12,8 +12,10 @@ public class AnimalSpawner : MonoBehaviour
     [Header("Price")]
     [SerializeField] private Text priceText;
     [SerializeField] private int startPrice = 5;
-    [SerializeField] private int increment = 2;
+    [SerializeField] private float increment = 1.5f;
     private int currentPrice;
+
+    private bool tutorialDone = false;
 
     private void Start()
     {
@@ -30,11 +32,21 @@ public class AnimalSpawner : MonoBehaviour
         {
             if(CoinManager.instance.coins >= currentPrice)
             {
+                SoundManager.instance.Play("Buy");
+
+                if (!PlayerPrefs.HasKey("TutorialDone") && !tutorialDone)
+                {
+                    tutorialDone = true;
+                    Tutorial.instance.NextTutorial();
+                }
+
                 CoinManager.instance.RemoveCoins(currentPrice);
-                currentPrice *= increment;
+                currentPrice *= Mathf.RoundToInt(Mathf.Pow(currentPrice, increment));
                 PlayerPrefs.SetInt("SpawnPrice", currentPrice);
+                PlayerPrefs.Save();
 
                 SpawnAnimal();
+
             }
         }
     }
@@ -45,5 +57,10 @@ public class AnimalSpawner : MonoBehaviour
 
         Vector3 position = new Vector3(randX, leftUpperCorner.y, randZ);
         Instantiate(animal, position, Quaternion.identity);
+    }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("SpawnPrice", currentPrice);
+        PlayerPrefs.Save();
     }
 }

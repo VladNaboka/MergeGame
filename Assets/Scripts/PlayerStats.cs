@@ -29,6 +29,6 @@ public class PlayerStats : MonoBehaviour
     private void Update()
     {
         capacityText.text = $"{CurrentCapacity}/{MaxAnimalCapacity}";
-        MaxAnimalCapacity = 10 + shop.addedCapacity;
+        MaxAnimalCapacity = 5 + shop.addedCapacity;
     }
 }

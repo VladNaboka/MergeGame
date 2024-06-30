@@ -64,6 +64,7 @@ public class DragAndDropObjects : MonoBehaviour
                 {
                     if (prefabObject != null)
                     {
+                        SoundManager.instance.Play("Merge");
                         Vector3 mergePosition = (transform.position + dragObj.transform.position) / 2;
                         Instantiate(effectMerge, mergePosition, Quaternion.identity);
                         Instantiate(prefabObject, mergePosition, Quaternion.identity);
@@ -74,6 +75,11 @@ public class DragAndDropObjects : MonoBehaviour
                         if (saveSystem != null)
                         {
                             saveSystem.UpdateDragObjectsArray();
+                        }
+
+                        if(Tutorial.instance.index == 1)
+                        {
+                            Tutorial.instance.NextTutorial();
                         }
                     }
                     else

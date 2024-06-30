@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinGiver : MonoBehaviour
 {
-    [SerializeField] private int coinAmount;
+    public int coinAmount;
     [SerializeField] private TextSpawner textSpawner;
     private RewardManager rewardManager;
 
