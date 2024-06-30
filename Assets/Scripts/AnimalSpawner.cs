@@ -20,6 +20,7 @@ public class AnimalSpawner : MonoBehaviour
     private void Start()
     {
         currentPrice = PlayerPrefs.GetInt("SpawnPrice", startPrice);
+        StartCoroutine(timerSaved());
     }
     private void Update()
     {
@@ -45,7 +46,7 @@ public class AnimalSpawner : MonoBehaviour
                 PlayerPrefs.SetInt("SpawnPrice", currentPrice);
 
                 SpawnAnimal();
-
+                PlayerPrefs.Save();
             }
         }
     }
@@ -57,9 +58,18 @@ public class AnimalSpawner : MonoBehaviour
         Vector3 position = new Vector3(randX, leftUpperCorner.y, randZ);
         Instantiate(animal, position, Quaternion.identity);
     }
-    private void OnApplicationQuit()
+    private IEnumerator timerSaved()
     {
-        PlayerPrefs.SetInt("SpawnPrice", currentPrice);
-        //PlayerPrefs.Save();
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            PlayerPrefs.SetInt("SpawnPrice", currentPrice);
+            PlayerPrefs.Save();
+        }
     }
+    //private void OnApplicationQuit()
+    //{
+    //    
+    //    PlayerPrefs.Save();
+    //}
 }

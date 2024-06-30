@@ -15,6 +15,7 @@ public class BackgroundIncome : MonoBehaviour
         {
             CountIncome();
         }
+        StartCoroutine(timerSaved());
     }
     private void CountIncome()
     {
@@ -48,8 +49,16 @@ public class BackgroundIncome : MonoBehaviour
     {
         incomeScreen.SetActive(false);
     }
-    private void OnApplicationQuit()
+    private IEnumerator timerSaved()
     {
-        SaveSession();
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            SaveSession();
+        }
     }
+    //private void OnApplicationQuit()
+    //{
+    //    SaveSession();
+    //}
 }

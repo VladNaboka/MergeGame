@@ -14,6 +14,7 @@ public class Shop : MonoBehaviour
     {
         addedCapacity = PlayerPrefs.GetInt("AddedCapacity", 0);
         currentPrice = PlayerPrefs.GetInt("CapacityPrice", basePrice);
+        StartCoroutine(timerSaved());
     }
     private void Update()
     {
@@ -32,10 +33,20 @@ public class Shop : MonoBehaviour
             PlayerPrefs.SetInt("CapacityPrice", currentPrice);
         }
     }
-    private void OnApplicationQuit()
+    private IEnumerator timerSaved()
     {
-        PlayerPrefs.SetInt("AddedCapacity", addedCapacity);
-        PlayerPrefs.SetInt("CapacityPrice", currentPrice);
-        PlayerPrefs.Save();
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            PlayerPrefs.SetInt("AddedCapacity", addedCapacity);
+            PlayerPrefs.SetInt("CapacityPrice", currentPrice);
+            PlayerPrefs.Save();
+        }
     }
+    //private void OnApplicationQuit()
+    //{
+    //    PlayerPrefs.SetInt("AddedCapacity", addedCapacity);
+    //    PlayerPrefs.SetInt("CapacityPrice", currentPrice);
+    //    PlayerPrefs.Save();
+    //}
 }

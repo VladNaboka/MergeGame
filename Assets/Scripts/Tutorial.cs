@@ -14,28 +14,44 @@ public class Tutorial : MonoBehaviour
         if (!PlayerPrefs.HasKey("TutorialDone"))
         {
             StartTutorial();
-            PlayerPrefs.Save();
+        }
+        else
+        {
+            // Туториал уже пройден, ничего не делаем
+            Debug.Log("Tutorial already completed.");
         }
     }
+
     private void StartTutorial()
     {
         index = 0;
         tutorialSlides[index].SetActive(true);
     }
+
     public void NextTutorial()
     {
+        tutorialSlides[index].SetActive(false);
         index += 1;
-        Debug.Log("Next tutorial" + index);
-        tutorialSlides[index - 1].SetActive(false);
+        Debug.Log("Next tutorial: " + index);
 
-        if (index != tutorialSlides.Length)
+        if (index < tutorialSlides.Length)
+        {
             tutorialSlides[index].SetActive(true);
+            PlayerPrefs.SetInt("TutorialIndex", index);
+            PlayerPrefs.Save();
+        }
 
-        if(index == 2)
+        if (index == 2)
         {
             StartCoroutine(TutorialCoroutine());
         }
+        else if (index >= tutorialSlides.Length)
+        {
+            PlayerPrefs.SetInt("TutorialDone", 1);
+            PlayerPrefs.Save();
+        }
     }
+
     public IEnumerator TutorialCoroutine()
     {
         tutorialSlides[1].SetActive(false);
