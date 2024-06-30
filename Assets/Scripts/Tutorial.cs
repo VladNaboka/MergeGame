@@ -8,7 +8,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private GameObject[] tutorialSlides;
     public int index;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         if (!PlayerPrefs.HasKey("TutorialDone"))
