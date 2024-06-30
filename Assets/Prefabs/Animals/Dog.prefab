@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4be5b5292257794f8d955968a5a4ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinAmount: 7
+  coinAmount: 64
   textSpawner: {fileID: -217692798762094599}
 --- !u!114 &-217692798762094599
 MonoBehaviour:
