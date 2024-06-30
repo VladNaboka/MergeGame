@@ -11,7 +11,7 @@ public class LoadingScreen : MonoBehaviour
     private void Start()
     {
         loadingBar.value = 0;
-        loadingBar.maxValue = 50;
+        loadingBar.maxValue = 25;
         StartCoroutine(LoadingCoroutine());
     }
     private IEnumerator LoadingCoroutine()
@@ -21,6 +21,6 @@ public class LoadingScreen : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             loadingBar.value += 0.1f;
         }
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("GameScene");
     }
 }

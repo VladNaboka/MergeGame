@@ -60,6 +60,6 @@ public class AnimalSpawner : MonoBehaviour
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("SpawnPrice", currentPrice);
-        PlayerPrefs.Save();
+        //PlayerPrefs.Save();
     }
 }
