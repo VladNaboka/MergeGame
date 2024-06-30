@@ -41,9 +41,8 @@ public class AnimalSpawner : MonoBehaviour
                 }
 
                 CoinManager.instance.RemoveCoins(currentPrice);
-                currentPrice += Mathf.RoundToInt(currentPrice * 1.5f);
+                currentPrice = Mathf.RoundToInt(currentPrice * 1.5f);
                 PlayerPrefs.SetInt("SpawnPrice", currentPrice);
-                PlayerPrefs.Save();
 
                 SpawnAnimal();
 

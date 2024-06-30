@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
@@ -17,8 +18,9 @@ public class LoadingScreen : MonoBehaviour
     {
         while(loadingBar.value < loadingBar.maxValue)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
             loadingBar.value += 0.1f;
         }
+        SceneManager.LoadScene("Menu");
     }
 }
