@@ -34,7 +34,7 @@ public class ClanService : MonoBehaviour
 
     #endregion
 
-    private string baseUrl = "https://zoofarmbackend.onrender.com";
+    private string baseUrl = "https://zoofarmbackend.onrender.com/clan";
 
     public void CreateClan(string name, int ownerId, Action<int> onSuccess, Action<string> onError)
     {
